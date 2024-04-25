@@ -1,0 +1,43 @@
+<nav class="navbar bg-body-tertiary">
+
+    <a class="navbar-brand" [routerLink]="['/extintores']">Aay! Profe</a>
+
+</nav>
+<div class="row">
+    <div class="col-3">
+        <div id="hora">
+            <countdown #cd [config]="config" (event)="handleEvent($event)"></countdown>
+        </div>
+
+        <div class="d-grid gap-2 mb-3">
+            <button (click)="onIniciar()" class="btn btn-warning" type="button">Sortear</button>
+        </div>
+
+    </div>
+    <div class="col-9">
+        <!-- Some borders are removed -->
+        <div class="roulette-container">
+            <div *ngIf="isSpinning; else notSpinning">
+                <h1 class="text-dark">
+                    {{ selectedAlumno?.nombre }} {{ selectedAlumno?.apellidos }}
+                </h1>
+            </div>
+            <ng-template #notSpinning>
+                <div>
+                    <h1 class="text-warning fw-bold">
+                        {{ selectedAlumno?.nombre }} {{ selectedAlumno?.apellidos }}
+                    </h1>
+                    <button (click)="toggleOfuscado()" *ngIf="selectedAlumno">
+                      <i *ngIf="ofuscar; else mostrar" class="fa-regular fa-eye"></i>
+                      <ng-template #mostrar>
+                        <i class="fa-regular fa-eye-slash"></i>
+                      </ng-template>
+                    </button>
+                    <h3>
+                        {{ ofuscar ? ofuscado(selectedPregunta?.descripcion) : selectedPregunta?.descripcion }}
+                    </h3>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
